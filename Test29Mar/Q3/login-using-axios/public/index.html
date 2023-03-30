@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>Login</title>
+  </head>
+  <body>
+    
+    <div id="app">
+      <form @submit.prevent="login">
+        <label for="username">Username:</label>
+        <input type="text" id="username" v-model="username">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" v-model="password">
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          username: '',
+          password: ''
+        },
+        methods: {
+          login: function() {
+            axios.post('/api/login', {
+              username: this.username,
+              password: this.password
+            })
+            .then(function(response) {
+              console.log(response.data);
+              // redirect to dashboard or do something else
+            })
+            .catch(function(error) {
+              console.log(error);
+              // display error message to user
+            });
+          }
+        }
+      });
+    </script>
+    
+    <!-- built files will be auto injected -->
+  </body>
+</html>
